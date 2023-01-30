@@ -4,7 +4,6 @@
     <TargetFramework>net472</TargetFramework>
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup>
