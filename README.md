@@ -4,7 +4,7 @@ A neos mod that adds additional resolution steps when adding a generic in the `A
 
 The additional resolution steps for a type name are as follows:
 
-1. If a name starts and ends with `[` and `]`, the Neos default resolver is used. _(this will make sense with step 4)_
+1. If a name starts and ends with `[` and `]`, the Neos default resolver is used.
 2. The name is compared against well known types.<br>
   _ex: `float`, `sbyte`, `int`_<br>
 3. If the name ends with `?`, the inner type is resolved using these steps recusively. If the resolved type is not a struct, no type is resolved.
