@@ -1,1 +1,1 @@
-# Neos-TypeType
+# Neos-GenericTypeType
