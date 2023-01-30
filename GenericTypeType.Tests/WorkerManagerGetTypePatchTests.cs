@@ -34,15 +34,30 @@ public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
   [InlineData("int?", typeof(int?))]
   [InlineData("floatQ?", typeof(floatQ?))]
   [InlineData("IField<floatQ?>", typeof(IField<floatQ?>))]
+  [InlineData("IField<[System.Int32]?>", typeof(IField<int?>))]
   [InlineData(" int ? ", typeof(int?))]
   [InlineData("System.TimeSpan", typeof(TimeSpan))]
   [InlineData("TimeSpan", typeof(TimeSpan))]
   [InlineData("Single", typeof(float))]
-  public void TryResolve(string name, Type? type)
+  public void Succeeds(string name, Type? type)
   {
     _testOutputHelper.WriteLine($"Resolving {name} to {type}");
 
     var result = WorkerManager.GetType(name);
     Assert.Equal(type, result);
+  }
+
+  [Theory]
+  [InlineData("[System.Int3212e]")]
+  [InlineData("IField<floatQ, float2>")]
+  public void ResolveFails(string name)
+  {
+    Type? result = null;
+    try
+    {
+      result = WorkerManager.GetType(name);
+    }
+    catch {}
+    Assert.Null(result);
   }
 }
