@@ -105,15 +105,8 @@ public class TypeResolver
   /// <returns>The resolved type, or null if not found.</returns>
   public Type? ParseType(string typeName)
   {
-    try
-    {
-      return ParseInternal(typeName);
-    }
-    catch
-    {
-      // TODO: Log the error.
-      return null;
-    }
+    // This used to have a try catch, but the patched method didn't bother so... meh?
+    return ParseInternal(typeName);
   }
 
   /// <summary>
