@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Runtime.CompilerServices;
+using HarmonyLib;
 using NeosModLoader;
 
 namespace GenericTypeType;
@@ -20,6 +21,7 @@ public class GenericTypeTypeMod : NeosMod
     HarmonyPatch();
   }
 
+  [MethodImpl(MethodImplOptions.NoInlining)]
   public static void HarmonyPatch()
   {
     var harmony = new Harmony("net.earthmark.GenericTypeType");

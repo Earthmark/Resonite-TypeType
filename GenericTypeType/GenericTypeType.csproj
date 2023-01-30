@@ -16,18 +16,23 @@
   <ItemGroup>
     <Reference Include="BaseX">
       <HintPath>$(NeosCoreLibs)\BaseX.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CodeX">
       <HintPath>$(NeosCoreLibs)\CodeX.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FrooxEngine">
       <HintPath>$(NeosCoreLibs)\FrooxEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="0Harmony">
       <HintPath>$(NeosNmlLibs)\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NeosModLoader">
       <HintPath>$(NeosLibs)\NeosModLoader.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   
