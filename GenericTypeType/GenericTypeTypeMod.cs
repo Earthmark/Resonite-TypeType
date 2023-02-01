@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using HarmonyLib;
 using NeosModLoader;
 
@@ -13,7 +14,7 @@ public class GenericTypeTypeMod : NeosMod
 
   public override string Name => nameof(GenericTypeType);
   public override string Author => "Earthmark";
-  public override string Version => "0.0.1";
+  public override string Version => "0.1.1";
 
   public override void OnEngineInit()
   {
