@@ -7,7 +7,7 @@ The additional resolution steps for a type name are as follows:
 1. If a name starts and ends with `[` and `]`, the Neos default resolver is used.
 2. The name is compared against well known types.<br>
   _ex: `float`, `sbyte`, `int`_<br>
-3. If the name ends with `?`, the inner type is resolved using these steps recusively. If the resolved type is not a struct, no type is resolved.
+3. If the name ends with `?`, the inner type is resolved using these steps recusively. If the resolved type is a struct, that type wrapped in `System.Nullable<T>` is returned, else no type is resolved.
 4. The name is checked against well known assemblies:<br>
   4.1. The name is a strongly named type in the assembly, without needing the assembly name itself (this solves needing BaseX everywhere)<br>
     _ex: `BaseX.float4`, `FrooxEngine.ITextField`, `System.String`_<br>
