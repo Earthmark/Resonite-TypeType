@@ -49,27 +49,11 @@ public class WorkerManagerGetTypePatch
     }
   }
 
-  private static void Prefix(out string __state, string typename)
+  private static void Prefix(out string __state, ref string typename)
   {
+    typename = typename.Replace("\\", "\\\\");
     __state = typename;
   }
-
-  //private static void Postfix(ref Type? __result, string __state)
-  //{
-  //  if (__result != null)
-  //  {
-  //    return;
-  //  }
-
-  //  if (!ForceEnable &&
-  //      (GenericTypeTypeMod.Config?.TryGetValue(GenericTypeTypeMod.IsEnabled, out var enabled) is null or false ||
-  //       !enabled))
-  //  {
-  //    return;
-  //  }
-
-  //  __result = Resolver.ParseType(__state);
-  //}
 
   private static Exception? Finalizer(Exception __exception, ref Type? __result, string __state)
   {
@@ -85,7 +69,17 @@ public class WorkerManagerGetTypePatch
       return null;
     }
 
-    __result = Resolver.ParseType(__state);
+    try
+    {
+      __result = Resolver.ParseType(__state);
+    }
+    catch
+    {
+      // ignored to prevent crashes.
+      // All of these errors are related to failing to resolve a type,
+      // which shouldn't leave the program in an invalid state.... (hopefully... maybe...)
+    }
+
     return null;
   }
 }

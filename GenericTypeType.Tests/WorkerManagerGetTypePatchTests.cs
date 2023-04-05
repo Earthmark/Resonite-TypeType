@@ -51,9 +51,21 @@ public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
   [Theory]
   [InlineData("[System.Int3212e]")]
   [InlineData("IField<floatQ, float2>")]
+  [InlineData("/")]
+  [InlineData("\\")]
   [InlineData("IAssetProvider<float3>")] // generic constraint failure
   public void ResolveFails(string name)
   {
     Assert.Null(WorkerManager.GetType(name));
+  }
+
+  [Fact]
+  public void ResolveManyTypes()
+  {
+    WorkerManager.GetType("");
+    WorkerManager.GetType("\\");
+    WorkerManager.GetType("\\\\");
+    WorkerManager.GetType("\\");
+    WorkerManager.GetType("");
   }
 }
