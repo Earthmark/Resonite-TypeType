@@ -34,6 +34,7 @@ public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
   [InlineData("int?", typeof(int?))]
   [InlineData("floatQ?", typeof(floatQ?))]
   [InlineData("IField<floatQ?>", typeof(IField<floatQ?>))]
+  [InlineData("Collections.Generic.KeyValuePair<float, float>", typeof(KeyValuePair<float, float>))]
   [InlineData("IField<[System.Int32]?>", typeof(IField<int?>))]
   [InlineData(" int ? ", typeof(int?))]
   [InlineData("System.TimeSpan", typeof(TimeSpan))]
@@ -50,14 +51,9 @@ public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
   [Theory]
   [InlineData("[System.Int3212e]")]
   [InlineData("IField<floatQ, float2>")]
+  [InlineData("IAssetProvider<float3>")] // generic constraint failure
   public void ResolveFails(string name)
   {
-    Type? result = null;
-    try
-    {
-      result = WorkerManager.GetType(name);
-    }
-    catch {}
-    Assert.Null(result);
+    Assert.Null(WorkerManager.GetType(name));
   }
 }

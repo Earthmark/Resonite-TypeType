@@ -20,7 +20,7 @@ public class TypeResolver
   /// <summary>
   /// The regex for the TypeResolver generic format.
   /// </summary>
-  private static readonly Regex TypeFormatRegex = new("^(?<Name>[^<>?]+)(<(?<generics>.+)>)?$");
+  private static readonly Regex TypeFormatRegex = new("^(?<Name>[^<>?]+)(<(?<generics>.+)>)$");
 
   /// <summary>
   /// The well known types to use short cuts to define.
@@ -61,7 +61,7 @@ public class TypeResolver
     /// <returns>The found type, or null if not found.</returns>
     public Type? TryResolve(string typeName)
     {
-      var foundType = _assembly.GetType(typeName);
+      var foundType = SafeResolve(_assembly, typeName);
       if (foundType != null)
       {
         return foundType;
@@ -69,11 +69,24 @@ public class TypeResolver
 
       foreach (var ns in _usingNamespacePrefix)
       {
-        var type = _assembly.GetType(ns + typeName);
-        if (type != null) return type;
+          var type = SafeResolve(_assembly, ns + typeName);
+          if (type != null) return type;
       }
 
       return null;
+    }
+
+    private static Type? SafeResolve(Assembly assembly, string typename)
+    {
+      Type? type = null;
+      try
+      {
+        type = assembly.GetType(typename);
+      }
+      catch (ArgumentException)
+      {
+      }
+      return type;
     }
 
     /// <summary>
@@ -168,10 +181,9 @@ public class TypeResolver
 
     var genStr = match.Groups["generics"].Value;
     List<Type> generics = new();
-    while (!string.IsNullOrWhiteSpace(genStr))
+    foreach(var generic in SplitGenericArgument(genStr))
     {
-      var current = ConsumeGenericDeclaration(ref genStr);
-      var subType = ParseInternal(current);
+      var subType = ParseInternal(generic);
       if (subType == null)
       {
         return null;
@@ -181,8 +193,15 @@ public class TypeResolver
     }
 
     var candidate = TryResolve($"{name}`{generics.Count}");
-    var resolvedCandidate = candidate?.MakeGenericType(generics.ToArray());
-    return resolvedCandidate?.IsConstructedGenericType ?? false ? resolvedCandidate : null;
+    try
+    {
+      var resolvedCandidate = candidate?.MakeGenericType(generics.ToArray());
+      return resolvedCandidate?.IsConstructedGenericType ?? false ? resolvedCandidate : null;
+    }
+    catch (ArgumentException)
+    {
+      return null;
+    }
   }
 
   /// <summary>
@@ -196,20 +215,20 @@ public class TypeResolver
   /// </remarks>
   /// <param name="genericStr">the generic string to read through for substrings, this is also used to return the remaining content to read.</param>
   /// <returns>A tuple of the current string, and the next string to iterate.</returns>
-  private static string ConsumeGenericDeclaration(ref string genericStr)
+  private static IEnumerable<string> SplitGenericArgument(string genericStr)
   {
     var recurLevel = 0;
     for (var i = 0; i < genericStr.Length; i++)
     {
-      var tok = genericStr[i];
-      switch (tok)
+      switch (genericStr[i])
       {
         case ',':
           if (recurLevel == 0)
           {
             var name = genericStr.Substring(0, i).Trim();
             genericStr = genericStr.Substring(i + 1);
-            return name;
+            i = 0;
+            yield return name.Trim();
           }
 
           break;
@@ -224,11 +243,7 @@ public class TypeResolver
       }
     }
 
-    // wipe the newly consumed string.
-    var cachedName = genericStr;
-    genericStr = "";
-
-    return cachedName;
+    yield return genericStr.Trim();
   }
 
   /// <summary>

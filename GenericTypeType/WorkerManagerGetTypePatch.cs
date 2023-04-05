@@ -54,20 +54,38 @@ public class WorkerManagerGetTypePatch
     __state = typename;
   }
 
-  private static void Postfix(ref Type? __result, string __state)
+  //private static void Postfix(ref Type? __result, string __state)
+  //{
+  //  if (__result != null)
+  //  {
+  //    return;
+  //  }
+
+  //  if (!ForceEnable &&
+  //      (GenericTypeTypeMod.Config?.TryGetValue(GenericTypeTypeMod.IsEnabled, out var enabled) is null or false ||
+  //       !enabled))
+  //  {
+  //    return;
+  //  }
+
+  //  __result = Resolver.ParseType(__state);
+  //}
+
+  private static Exception? Finalizer(Exception __exception, ref Type? __result, string __state)
   {
     if (__result != null)
     {
-      return;
+      return null;
     }
 
     if (!ForceEnable &&
         (GenericTypeTypeMod.Config?.TryGetValue(GenericTypeTypeMod.IsEnabled, out var enabled) is null or false ||
          !enabled))
     {
-      return;
+      return null;
     }
 
     __result = Resolver.ParseType(__state);
+    return null;
   }
 }

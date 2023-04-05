@@ -115,6 +115,7 @@ namespace GenericTypeType.Tests
     [InlineData("bad")]
     [InlineData("[bad]")]
     [InlineData("[System.Nullable`1[[bad]]]")]
+    [InlineData("IAssetProvider<float3>")]
     [InlineData("DoubleResolveableType<int>")] // generic count mismatch
     public void TestFailedResolution(string name)
     {
