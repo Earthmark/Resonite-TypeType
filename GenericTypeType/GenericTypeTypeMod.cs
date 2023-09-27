@@ -14,7 +14,7 @@ public class GenericTypeTypeMod : ResoniteMod
 
   public override string Name => nameof(GenericTypeType);
   public override string Author => "Earthmark";
-  public override string Version => "0.1.2";
+  public override string Version => "0.2.0";
 
   public override void OnEngineInit()
   {
