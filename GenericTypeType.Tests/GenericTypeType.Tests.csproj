@@ -9,28 +9,31 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NeosDirectory Condition="'$(NeosDirectory)' == ''">C:\Program Files (x86)\Steam\steamapps\common\NeosVR</NeosDirectory>
-    <NeosCoreLibs>$(NeosDirectory)\Neos_Data\Managed</NeosCoreLibs>
-    <NeosNmlLibs>$(NeosDirectory)\nml_libs</NeosNmlLibs>
-    <NeosLibs>$(NeosDirectory)\Libraries</NeosLibs>
+	<ResonitePath>$(MSBuildThisFileDirectory)NeosVR</ResonitePath>
+	<ResonitePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('D:\Program Files (x86)\Steam\steamapps\common\Resonite\')">D:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('C:\SteamLibrary\steamapps\common\Resonite\')">C:\SteamLibrary\steamapps\common\Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('D:\SteamLibrary\steamapps\common\Resonite\')">D:\SteamLibrary\steamapps\common\Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</ResonitePath>
+	<ResonitePath Condition="Exists('E:\Programs\Steam\steamapps\common\Resonite')">E:\Programs\Steam\steamapps\common\Resonite\</ResonitePath>
+	<ResoniteCoreLibs>$(ResonitePath)\Resonite_Data\Managed</ResoniteCoreLibs>
+	<ResoniteNmlLibs>$(ResonitePath)\rml_libs</ResoniteNmlLibs>
+	<ResoniteLibs>$(ResonitePath)\Libraries</ResoniteLibs>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="BaseX">
-      <HintPath>$(NeosCoreLibs)\BaseX.dll</HintPath>
-    </Reference>
-    <Reference Include="CodeX">
-      <HintPath>$(NeosCoreLibs)\CodeX.dll</HintPath>
-    </Reference>
-    <Reference Include="FrooxEngine">
-      <HintPath>$(NeosCoreLibs)\FrooxEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>$(NeosNmlLibs)\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="NeosModLoader">
-      <HintPath>$(NeosLibs)\NeosModLoader.dll</HintPath>
-    </Reference>
+	<Reference Include="Elements.Core">
+	  <HintPath>$(ResoniteCoreLibs)\Elements.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="FrooxEngine">
+	  <HintPath>$(ResoniteCoreLibs)\FrooxEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="0Harmony">
+	  <HintPath>$(ResoniteNmlLibs)\0Harmony.dll</HintPath>
+	</Reference>
+	<Reference Include="ResoniteModLoader">
+	  <HintPath>$(ResoniteLibs)\ResoniteModLoader.dll</HintPath>
+	</Reference>
   </ItemGroup>
 
 

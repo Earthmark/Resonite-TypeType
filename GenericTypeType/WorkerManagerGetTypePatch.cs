@@ -32,10 +32,10 @@ public class WorkerManagerGetTypePatch
     {
       new TypeResolver.WellKnownAssembly(typeof(WorkerManager).Assembly,
         "FrooxEngine.",
-        "FrooxEngine.LogiX.",
+        "FrooxEngine.ProtoFlux.",
         "FrooxEngine.UIX."),
-      new TypeResolver.WellKnownAssembly(typeof(BaseX.float2).Assembly,
-        "BaseX."),
+      new TypeResolver.WellKnownAssembly(typeof(Elements.Core.float2).Assembly,
+        "Elements.Core."),
       new TypeResolver.WellKnownAssembly(typeof(int).Assembly,
         "System.")
     },

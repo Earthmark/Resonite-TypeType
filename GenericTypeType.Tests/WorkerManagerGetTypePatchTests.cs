@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BaseX;
-using NeosModLoader;
+using Elements.Core;
+using ResoniteModLoader;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -20,7 +20,9 @@ public class HarmonyRewriteSetup
   }
 }
 
+#pragma warning disable xUnit1033 // Test classes decorated with 'Xunit.IClassFixture<TFixture>' or 'Xunit.ICollectionFixture<TFixture>' should add a constructor argument of type TFixture
 public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
+#pragma warning restore xUnit1033 // Test classes decorated with 'Xunit.IClassFixture<TFixture>' or 'Xunit.ICollectionFixture<TFixture>' should add a constructor argument of type TFixture
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
@@ -33,6 +35,7 @@ public class WorkerManagerGetTypePatchTests : IClassFixture<HarmonyRewriteSetup>
   [InlineData("[System.Int32]", typeof(int))]
   [InlineData("int?", typeof(int?))]
   [InlineData("floatQ?", typeof(floatQ?))]
+  [InlineData("IField<int?>", typeof(IField<int?>))]
   [InlineData("IField<floatQ?>", typeof(IField<floatQ?>))]
   [InlineData("Collections.Generic.KeyValuePair<float, float>", typeof(KeyValuePair<float, float>))]
   [InlineData("IField<[System.Int32]?>", typeof(IField<int?>))]

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
-using NeosModLoader;
+using ResoniteModLoader;
 
 namespace GenericTypeType;
 
-public class GenericTypeTypeMod : NeosMod
+public class GenericTypeTypeMod : ResoniteMod
 {
   public static ModConfiguration? Config;
 
