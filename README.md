@@ -1,5 +1,7 @@
 # GenericTypeType
 
+**This feature is now formally implemented in Resonite, this mod is no longer needed.**
+
 **Note:** _Since an official mod loader is not in place, this one will link to the mod loader created by Rucio and Stiefel. Once an official one comes out (perhaps a collab between all forks), then we will replace the URL below._
 
 A [ResoniteModLoader](https://github.com/bontebok/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that adds additional resolution steps when adding a generic in the `AttachComponent` dialog. The original Resonite resolution pattern is still intact with this mod as this only comes into play if the built-in type resolver failed to find a candidate type.
